@@ -1,8 +1,32 @@
+<div class="w-full fixed top-0 bg-yellow-400 flex h-14 justify-end ">
+
+
 <% if user_signed_in? %>
-  <%= current_user.email %><br>
-  <%= link_to 'Account settings', edit_user_registration_path %><br>
-  <%= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete} %>
+<div class="flex space-x-4 items-center justify-between mr-4">
+
+  <%= link_to 'Account settings', edit_user_registration_path, class: "text-blue-600 hover:underline" %>
+  <%= link_to 'Sign out',
+              destroy_user_session_path,
+              data: { turbo_method: :delete },
+              class: "text-red-600 hover:underline " %>
+</div>
+
 <% else %>
-  <%= link_to 'Sign Up', new_user_registration_path %><br>
+<div class="flex space-x-4 items-center justify-between">
+
+  <%= link_to 'Sign Up', 
+  new_user_registration_path,
+  class:"mx-4" %>
   <%= link_to 'Log In', new_user_session_path %>
 <% end %>
+</div>
+</div>
+
+
+
+
+
+
+
+
+

@@ -9,6 +9,6 @@ class User < ApplicationRecord
           email
         end
         
-        has_many :courses
+        has_many :courses , dependent: :destroy  # <- esto es clave
 
 end
