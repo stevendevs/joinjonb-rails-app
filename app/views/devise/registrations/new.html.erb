@@ -1,34 +1,104 @@
-<div class="bg-base-300 pt-14 h-screen"
+
+
+<div class="hero bg-base-200 min-h-screen pt-14">
+  <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="text-center lg:text-left">
+      <h1 class="text-5xl font-bold">Login now!</h1>
+   
+    </div>
+    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <div class="card-body">
+        <fieldset class="fieldset">
+          <label class="label">Email</label>
+          <input type="email" class="input" placeholder="Email" />
+          <label class="label">Password</label>
+          <input type="password" class="input" placeholder="Password" />
+          <div><a class="link link-hover">Forgot password?</a></div>
+          <button class="btn btn-neutral mt-4">Login</button>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="bg-secundary-light dark:bg-secundary-dark pt-14 h-screen font-poppins">
 
 <%= render "shared/frame_tab" %>
 
- 
-
-
-<%= simple_form_for(resource, as: resource_name, class:"flex flex-col",  url: registration_path(resource_name)) do |f| %>
- 
+<div class="max-w-md mx-auto mt-8 p-6 bg-primary-light dark:bg-primary-dark rounded-complete shadow-lg">
+  <h2 class="text-2xl font-bold mb-6 text-blue-sky-DEFAULT">Create Account</h2>
   
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    
+    <div class="form-inputs flex flex-col justify-center items-center w-full space-y-4">
+      <%= f.error_notification class: "text-red-500 mb-2" %>
+      
+      <div class="w-full">
+        <%= f.label :email, class: "block text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= f.input :email,
+                    required: true,
+                    autofocus: true,
+                    input_html: { 
+                      autocomplete: "email",
+                      class: "w-full px-4 py-2 border border-tertiary-light dark:border-tertiary-dark rounded-standard focus:outline-none focus:ring-2 focus:ring-blue-sky-DEFAULT"
+                    },
+                    label: false,
+                    wrapper: false %>
+      </div>
+      
+      <div class="w-full">
+        <%= f.label :password, class: "block text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= f.input :password,
+                    required: true,
+                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                    input_html: { 
+                      autocomplete: "new-password",
+                      class: "w-full px-4 py-2 border border-tertiary-light dark:border-tertiary-dark rounded-standard focus:outline-none focus:ring-2 focus:ring-blue-sky-DEFAULT"
+                    },
+                    label: false,
+                    wrapper: false,
+                    hint_html: { class: "text-xs text-gray-500 dark:text-gray-400 mt-1" } %>
+      </div>
+      
+      <div class="w-full">
+        <%= f.label :password_confirmation, class: "block text-gray-700 dark:text-gray-300 mb-1" %>
+        <%= f.input :password_confirmation,
+                    required: true,
+                    input_html: { 
+                      autocomplete: "new-password",
+                      class: "w-full px-4 py-2 border border-tertiary-light dark:border-tertiary-dark rounded-standard focus:outline-none focus:ring-2 focus:ring-blue-sky-DEFAULT"
+                    },
+                    label: false,
+                    wrapper: false %>
+      </div>
+      
+      <div class="form-actions w-full mt-6">
+        <%= f.button :submit, "Sign up", class: "w-full bg-amarillo-mostaza hover:bg-blue-sky-DEFAULT text-primary-dark hover:text-white py-2 px-4 rounded-standard transition duration-300 font-medium" %>
+      </div>
+    </div>
+  <% end %>
   
-    <%= f.error_notification %>
-  <div class="form-inputs flex flex-col  justify-center items-center w-full space-y-4">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
-                <div class="form-actions">
-                  <%= f.button :submit, "Sign up" %>
-                </div>
+  <div class="mt-4 text-center text-sm">
+    <p class="text-gray-600 dark:text-gray-400">
+      Already have an account? 
+      <%= link_to "Log in", new_session_path(resource_name), class: "text-blue-sky-DEFAULT hover:underline" %>
+    </p>
   </div>
-
-<% end %>
-
-
+</div>
 
 </div>

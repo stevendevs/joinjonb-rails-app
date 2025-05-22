@@ -10,6 +10,13 @@
 require 'faker'
 
 # Crear un usuario para asignarle los cursos
+user = User.create!(
+  email: "kevin@gmail.com",
+  password: "123456",
+  password_confirmation: "123456"
+)
+
+
 
 
 # Crear 30 cursos con ese usuario

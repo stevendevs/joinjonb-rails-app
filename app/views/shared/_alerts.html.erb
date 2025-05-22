@@ -1,11 +1,56 @@
 <% if notice.present? %>
-  <p class="fixed top-16 right-6 bg-green-100 text-green-800 px-4 py-2 rounded shadow text-sm z-50">
-    <%= notice %>
-  </p>
+  
+
+
+<!-- Success Alert -->
+<div class="flex items-center p-4 mb-4 bg-green-100 border-l-4 border-green-500 rounded-standard dark:bg-green-900/30 dark:border-green-500 fixed top-16 z-50">
+  <svg class="w-5 h-5 text-green-500 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+  </svg>
+  <div>
+    <span class="font-medium text-green-700 dark:text-green-400">Success!</span>
+    <p class="text-sm text-green-600 dark:text-green-300">   <%= notice %></p>
+  </div>
+  <button class="ml-auto text-green-500 hover:text-green-700">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+</div>
+
+
+
+
+
+
+
 <% end %>
 
 <% if alert.present? %>
-  <p class="fixed flex justify-center items-center top-16 right-6 bg-red-100 text-red-800 px-4 py-2 rounded shadow text-sm z-50 h-30 ">
-    <%= alert %>
-  </p>
+ 
+
+
+<!-- Error Alert -->
+<div class="flex items-center p-4 mb-4 bg-red-100 border-l-4 border-red-500 rounded-standard dark:bg-red-900/30 dark:border-red-500 animate-move-down fixed top-16 z-50">
+  <svg class="w-5 h-5 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+  </svg>
+  <div>
+    <span class="font-medium text-red-700 dark:text-red-400">Error!</span>
+    <p class="text-sm text-red-600 dark:text-red-300"> <%= alert %>
+
+ </p>
+  </div>
+  <button class="ml-auto text-red-500 hover:text-red-700">
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+</div>
+
+
+
+
+
+
 <% end %>
