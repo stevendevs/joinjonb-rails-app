@@ -1,16 +1,16 @@
-<div class="pt-16 bg-base-300 h-screen "
+<div class="bg-base-300 pt-14 h-screen"
 
 <%= render "shared/frame_tab" %>
 
  
 
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= simple_form_for(resource, as: resource_name, class:"flex flex-col",  url: registration_path(resource_name)) do |f| %>
  
-
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
+  
+  
+    <%= f.error_notification %>
+  <div class="form-inputs flex flex-col  justify-center items-center w-full space-y-4">
     <%= f.input :email,
                 required: true,
                 autofocus: true,
@@ -22,11 +22,11 @@
     <%= f.input :password_confirmation,
                 required: true,
                 input_html: { autocomplete: "new-password" } %>
+                <div class="form-actions">
+                  <%= f.button :submit, "Sign up" %>
+                </div>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
 <% end %>
 
 

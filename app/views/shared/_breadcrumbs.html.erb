@@ -1,0 +1,10 @@
+
+    <div class="breadcrumbs  py-6 bg-base-300  ">  
+      <ul class="flex space-x-2 px-6 text-sm">
+        <% if user_signed_in? %>
+          <li><a><%= current_user.email %></a></li>
+        <% end %>
+        <li><%= link_to "Courses", courses_path %></li>
+        <li>Add Document</li>
+      </ul>
+    </div>
