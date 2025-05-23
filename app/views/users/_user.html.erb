@@ -32,6 +32,12 @@
         <span class="font-semibold">IP actual:</span>
         <span><%= user.current_sign_in_ip %></span>
       </div>
+
+
+      <div class="card-footer">
+      Confirmed email? <%= user.confirmed? ? 'Yes' : 'No' %>
+    </div>
+
     </div>
   </div>
 </div>
