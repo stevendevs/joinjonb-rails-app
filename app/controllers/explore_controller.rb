@@ -1,3 +1,5 @@
+
+
 class ExploreController < ApplicationController
   def show
     if params[:location].present?
@@ -5,14 +7,20 @@ class ExploreController < ApplicationController
       @map_x = results.first.coordinates[0]
       @map_y = results.first.coordinates[1]
       @courses = Course.near([@map_x, @map_y], 50)
-
+      # initial setup
       @course_data = @courses.map do |course|
         {
-          x: course.latitude,
-          y: course.longitude,
-          popupMessage: "#{course.title} - #{course.description}"
-        }
-      end.to_json
+            x: course.latitude,
+            y: course.longitude,
+        popupMessage: "#{course.title} - $#{course.description}",
+        }.to_json
+        end
+      
     end
   end
 end
+
+
+
+
+
