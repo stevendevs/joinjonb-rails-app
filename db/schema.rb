@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_23_041306) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_23_150625) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -60,8 +60,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_041306) do
     t.bigint "user_id", null: false
     t.string "slug"
     t.string "location"
-    t.decimal "x"
-    t.decimal "y"
+    t.decimal "latitude"
+    t.decimal "longitude"
     t.index ["slug"], name: "index_courses_on_slug", unique: true
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
