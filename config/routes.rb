@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
+  get "explore/show"
   devise_for :users
   resources :courses
   resources :users
+
+
+  get "explore", to: "explore#show", as: :explore
+
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -14,5 +19,6 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
+#   root "pages#index"
    root "pages#index"
 end

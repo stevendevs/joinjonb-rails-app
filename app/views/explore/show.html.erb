@@ -1,0 +1,43 @@
+
+<div class="w-full flex flex-col h-screen pt-16">
+
+  <%= form_with url: url_for, class: "w-full", method: :get do |form| %>
+    <div class="flex w-full gap-2 items-end">
+      <div class="flex flex-col max-w-sm w-full"> 
+        <%= form.label :location, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+        <%= form.text_field :location, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
+          value: params[:location] %>
+      </div>
+      <%= form.submit "Search", class: "cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-3 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" %>
+    </div>
+  <% end %>
+ 
+
+
+
+
+
+
+
+
+ <% if @courses %>
+    <% @course_data = @courses.map { |course| 
+        {
+          x: course.latitude,
+          y: course.longitude,
+          popupMessage: render(partial: "courses/popup_message", locals: { course: course })
+        }.to_json
+      }
+    %>
+  <% end %>
+
+
+
+
+
+
+
+  <div id="map" class="w-full h-[80vh] bg-indigo-500 mt-4" data-controller="map" data-map-x-value="<%= @map_x %>" data-map-y-value="<%= @map_y %>"   data-map-data-value="<%= @course_data %>"> </div>
+</div>
+
+
