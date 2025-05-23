@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_23_150625) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_23_194059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -62,6 +62,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_23_150625) do
     t.string "location"
     t.decimal "latitude"
     t.decimal "longitude"
+    t.text "short_description"
+    t.string "language", default: "Español", null: false
+    t.string "level", default: "Principiante", null: false
+    t.integer "price", default: 0, null: false
     t.index ["slug"], name: "index_courses_on_slug", unique: true
     t.index ["user_id"], name: "index_courses_on_user_id"
   end

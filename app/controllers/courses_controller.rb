@@ -1,13 +1,12 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :set_course, only: %i[show edit update destroy]
 
   # GET /courses or /courses.json
   def index
-    
     if params[:title]
-      @courses = Course.where('title ILIKE ?', "%#{params[:title]}%") #case-insensitive
+      @courses = Course.where('title ILIKE ?', "%#{params[:title]}%")
     else
-      @courses = current_user.courses
+      @courses = Course.all
     end
   end
 
@@ -17,7 +16,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/new
   def new
-    @course = current_user.courses.new
+    @course = Course.new
   end
 
   # GET /courses/1/edit
@@ -26,8 +25,9 @@ class CoursesController < ApplicationController
 
   # POST /courses or /courses.json
   def create
-    @course = current_user.courses.new(course_params)
-@course.user = current_user
+    @course = Course.new(course_params)
+    @course.user = current_user
+
     respond_to do |format|
       if @course.save
         format.html { redirect_to @course, notice: "Course was successfully created." }
@@ -55,7 +55,6 @@ class CoursesController < ApplicationController
   # DELETE /courses/1 or /courses/1.json
   def destroy
     @course.destroy!
-
     respond_to do |format|
       format.html { redirect_to courses_path, status: :see_other, notice: "Course was successfully destroyed." }
       format.json { head :no_content }
@@ -63,13 +62,15 @@ class CoursesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_course
-      @course = current_user.courses.friendly.find(params[:id]) 
+      @course = Course.friendly.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def course_params
-      params.expect(course: [ :title, :description, :location,  images: [] ])
+      params.require(:course).permit(
+        :title, :description, :location, :short_description,
+        :price, :language, :level, images: []
+      )
     end
 end

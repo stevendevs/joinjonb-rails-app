@@ -19,13 +19,13 @@ export default class extends Controller {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
     
-    if (this.hasDataValue) {
-      this.dataValue.forEach(value => {
-        let item = JSON.parse(value)
-        L.marker([item.x, item.y]).addTo(this.map)
-          .bindPopup(item.popupMessage)
-          .openPopup();
-      })
-    }
+   if (this.hasDataValue) {
+  this.dataValue.forEach(value => {
+    let item = typeof value === "string" ? JSON.parse(value) : value
+    L.marker([item.x, item.y]).addTo(this.map)
+      .bindPopup(item.popupMessage)
+  });
+}
+
   }
 }

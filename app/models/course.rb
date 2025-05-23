@@ -24,18 +24,17 @@ after_validation :geocode_x_and_y
 
      private  
 
-
-     def geocode_x_and_y 
-
+     def geocode_x_and_y
+      return if location.blank?
+    
       results = Geocoder.search(location)
-      coords = results.first.coordinates
- 
-      self.latitude = coords[0]
-      self.longitude = coords[1]
- 
- 
-
-     end 
+      if results.present? && results.first&.coordinates.present?
+        coords = results.first.coordinates
+        self.latitude = coords[0]
+        self.longitude = coords[1]
+      end
+    end
+    
 
 end
 
