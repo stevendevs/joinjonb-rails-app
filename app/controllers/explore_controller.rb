@@ -8,13 +8,7 @@ class ExploreController < ApplicationController
       @map_y = results.first.coordinates[1]
       @courses = Course.near([@map_x, @map_y], 50)
       # initial setup
-      @course_data = @courses.map do |course|
-        {
-            x: course.latitude,
-            y: course.longitude,
-        popupMessage: "#{course.title} - $#{course.description}",
-        }.to_json
-        end
+   
       
     end
   end

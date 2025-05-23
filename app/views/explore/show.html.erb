@@ -12,6 +12,31 @@
     </div>
   <% end %>
  
+
+
+
+
+
+
+
+
+ <% if @courses %>
+    <% @course_data = @courses.map { |course| 
+        {
+          x: course.latitude,
+          y: course.longitude,
+          popupMessage: render(partial: "courses/popup_message", locals: { course: course })
+        }.to_json
+      }
+    %>
+  <% end %>
+
+
+
+
+
+
+
   <div id="map" class="w-full h-[80vh] bg-indigo-500 mt-4" data-controller="map" data-map-x-value="<%= @map_x %>" data-map-y-value="<%= @map_y %>"   data-map-data-value="<%= @course_data %>"> </div>
 </div>
 
