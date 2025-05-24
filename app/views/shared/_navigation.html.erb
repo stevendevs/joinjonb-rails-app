@@ -1,24 +1,24 @@
-<nav class="fixed top-0 w-full bg-joinjob-yellow flex flex-col sm:flex-row justify-between items-center h-auto sm:h-14 px-3 py-2 sm:py-0 z-50 shadow-lg">
-  <!-- Logo Section -->
+<nav data-controller="mobile-menu" class="fixed top-0 w-full bg-joinjob-yellow flex flex-col sm:flex-row justify-between items-stretch h-auto sm:h-14 px-3 py-2 sm:py-0 z-50 shadow-lg">
+  <!-- Logo + Toggle -->
   <div class="flex justify-between items-center w-full sm:w-auto border-b sm:border-b-0 sm:border-r border-white/40 pb-2 sm:pb-0 sm:pr-3 mb-2 sm:mb-0">
     <%= link_to root_path, class: "text-xl sm:text-2xl font-black text-white/80 hover:text-white transition-colors" do %>
       <h1>JoinJob</h1>
     <% end %>
-    
-    <!-- Mobile menu toggle (you'll need to add JavaScript for this) -->
-    <button class="sm:hidden text-white/80 hover:text-white" id="mobile-menu-toggle">
+
+    <button data-mobile-menu-target="toggle" data-action="click->mobile-menu#toggleMenu" class="sm:hidden text-white/80 hover:text-white">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
   </div>
 
-  <!-- Main Navigation Content -->
-  <div class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto" id="mobile-menu">
+  <!-- Menu principal -->
+  <div data-mobile-menu-target="menu" id="mobile-menu"
+       class="hidden sm:flex flex-col sm:flex-row items-stretch space-y-3 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
     
-    <!-- Search Section -->
-    <% if current_user %>
-      <div class="w-full sm:w-auto order-3 sm:order-1">
+    <!-- Search -->
+    <% if current_user && current_user.has_role?(:admin) %>
+      <div class="w-full sm:w-auto sm:flex sm:items-center">
         <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "flex" do |f| %>
           <div class="flex w-full sm:w-auto">
             <%= f.search_field :title_cont, 
@@ -32,65 +32,36 @@
       </div>
     <% end %>
 
-    <!-- Navigation Dropdown -->
-    <div class="order-1 sm:order-2">
-      <div class="flex items-center bg-yellow-500 h-10 rounded-full px-3 shadow-md">
-        <% items = [
-          ["JOINJOB", root_path],
-          ["COURSES", courses_path],
-          ["OPTIONS", edit_user_registration_path],
-          ["USERS", users_path],
-          ["MAP", explore_path],
-          ["ACTIVITY", pages_activity_path]
-        ].compact %>
+    <!-- Dropdown -->
+    <div class="sm:flex sm:items-center">
+      <% items = [
+        ["JOINJOB", root_path],
+        ["COURSES", courses_path],
+        ["OPTIONS", edit_user_registration_path],
+        ["USERS", users_path],
+        ["MAP", explore_path],
+        ["ACTIVITY", pages_activity_path]
+      ].compact %>
 
-        <%= select_tag :navigation,
-            options_for_select(items, request.path),
-            onchange: "Turbo.visit(this.value)",
-            data: { turbo_frame: :main },
-            class: "bg-transparent text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full px-2 py-1 cursor-pointer" %>
-      </div>
+      <%= select_tag :navigation,
+          options_for_select(items, request.path),
+          onchange: "Turbo.visit(this.value)",
+          data: { turbo_frame: :main },
+          class: "bg-yellow-500 text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full px-2 py-1 cursor-pointer shadow-md" %>
     </div>
 
     <!-- User Actions -->
-    <div class="order-2 sm:order-3">
+    <div class="sm:flex sm:items-center">
       <% if user_signed_in? %>
         <%= link_to 'Sign out',
             destroy_user_session_path,
             data: { turbo_method: :delete },
-            class: "inline-block text-white bg-red-600 hover:bg-red-700 active:bg-red-800 rounded-full font-medium text-sm px-4 sm:px-5 py-2 sm:py-2.5 text-center transition-colors duration-200 shadow-md hover:shadow-lg" %>
+            class: "text-white bg-red-600 hover:bg-red-700 rounded-full font-medium text-sm px-4 sm:px-5 py-2 sm:py-2.5 text-center transition-colors shadow-md hover:shadow-lg" %>
       <% else %>
         <%= link_to 'Sign in',
             new_user_session_path,
-            class: "inline-block text-yellow-600 bg-white hover:bg-gray-100 rounded-full font-medium text-sm px-4 sm:px-5 py-2 sm:py-2.5 text-center transition-colors duration-200 shadow-md hover:shadow-lg" %>
+            class: "text-yellow-600 bg-white hover:bg-gray-100 rounded-full font-medium text-sm px-4 sm:px-5 py-2 sm:py-2.5 text-center transition-colors shadow-md hover:shadow-lg" %>
       <% end %>
     </div>
   </div>
 </nav>
-
-<!-- Add some JavaScript for mobile menu toggle -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    
-    if (mobileMenuToggle && mobileMenu) {
-      mobileMenuToggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('hidden');
-      });
-    }
-  });
-</script>
-
-<!-- Add padding to body to account for fixed navbar -->
-<style>
-  body {
-    padding-top: 3.5rem; /* 14 * 0.25rem = 3.5rem for sm screens */
-  }
-  
-  @media (max-width: 640px) {
-    body {
-      padding-top: 8rem; /* More space for mobile expanded menu */
-    }
-  }
-</style>

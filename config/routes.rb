@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "explore/show"
   devise_for :users
   resources :courses
-  resources :users
+  resources :users, only: [:index, :edit, :show, :update]
 
 
   get "explore", to: "explore#show", as: :explore

@@ -14,42 +14,46 @@
   <!-- Form -->
   <div class="row">
   <div class="col-md-2">
-  <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f| %>
-
-      <div class="form-group">
-        <%= f.label :title %>
-        <%= f.search_field :title, placeholder: 'Title', class: 'form-control form-control-sm' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :description %>
-        <%= f.search_field :short_description, placeholder: 'Description', class: 'form-control form-control-sm' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :language %>
-        <%= f.select :language, Course.languages, include_blank: true, class: 'form-control form-control-sm' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :level %>
-        <%= f.select :level, Course.levels, include_blank: true, class: 'form-control form-control-sm' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :price %>
-        <%= f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm' %>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :teacher %>
-        <%= f.search_field :user_email, placeholder: 'Email', class: 'form-control form-control-sm' %>
-      </div>
-
-      <%= f.submit 'Search', class: 'btn btn-primary btn-sm' %>
-    <% end %>
-
-    <%= link_to 'refresh', courses_path %>
+  <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path, method: :get do |f| %>
+    <!-- Título -->
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm' %>
+    </div>
+  
+    <!-- Descripción corta -->
+    <div class="form-group">
+      <%= f.label :short_description %>
+      <%= f.search_field :short_description_cont, placeholder: 'Short Description', class: 'form-control form-control-sm' %>
+    </div>
+  
+    <!-- Idioma -->
+    <div class="form-group">
+      <%= f.label :language %>
+      <%= f.select :language_eq, Course.languages, include_blank: true, class: 'form-control form-control-sm' %>
+    </div>
+  
+    <!-- Nivel -->
+    <div class="form-group">
+      <%= f.label :level %>
+      <%= f.select :level_eq, Course.levels, include_blank: true, class: 'form-control form-control-sm' %>
+    </div>
+  
+    <!-- Precio -->
+    <div class="form-group">
+      <%= f.label :price %>
+      <%= f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm' %>
+    </div>
+  
+    <!-- Email del profesor (asociación con user) -->
+    <div class="form-group">
+      <%= f.label :user_email, 'Teacher Email' %>
+      <%= f.search_field :user_email_cont, placeholder: 'Email', class: 'form-control form-control-sm' %>
+    </div>
+  
+    <%= f.submit 'Search', class: 'btn btn-primary btn-sm' %>
+  <% end %>
+  
   </div>
 </div>
 

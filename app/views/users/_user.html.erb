@@ -45,8 +45,9 @@
   <% user.roles.each do |role| %>
     <div>
       <%= role.name %>
-    </div>
-  <% end %>
+      </div>
+      <% end %>
+      <%= link_to "Edit", edit_user_path(user) %>
 </div>
 
 
