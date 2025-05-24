@@ -9,6 +9,52 @@
     <%= link_to "New course", new_course_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
 
+
+
+  <!-- Form -->
+  <div class="row">
+  <div class="col-md-2">
+    <%= search_form_for @q do |f| %>
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.search_field :short_description_cont, placeholder: 'Description', class: 'form-control form-control-sm' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :language %>
+        <%= f.select :language_cont, Course.languages, include_blank: true, class: 'form-control form-control-sm' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :level %>
+        <%= f.select :level_cont, Course.levels, include_blank: true, class: 'form-control form-control-sm' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :price %>
+        <%= f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm' %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :teacher %>
+        <%= f.search_field :user_email_cont, placeholder: 'Email', class: 'form-control form-control-sm' %>
+      </div>
+
+      <%= f.submit 'Search', class: 'btn btn-primary btn-sm' %>
+    <% end %>
+
+    <%= link_to 'refresh', courses_path %>
+  </div>
+</div>
+
+
+
+
   <!-- Contenedor scrollable -->
   <div id="courses" class="flex-1 overflow-y-auto min-w-full divide-y divide-gray-200 space-y-5 p-8">
 
