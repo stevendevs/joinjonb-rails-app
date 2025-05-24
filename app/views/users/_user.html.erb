@@ -38,6 +38,18 @@
       Confirmed email? <%= user.confirmed? ? 'Yes' : 'No' %>
     </div>
 
+
+
+
+    <div class="card-footer">
+  <% user.roles.each do |role| %>
+    <div>
+      <%= role.name %>
+    </div>
+  <% end %>
+</div>
+
+
     </div>
   </div>
 </div>
