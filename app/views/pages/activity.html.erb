@@ -1,0 +1,26 @@
+<div class="w-full h-screen justify-center pt-16">
+
+  <h3 style="text-align: center;">
+    Activity
+    <span>
+      <%= @activities.count %>
+    </span>
+  </h3>
+
+  <p></p>
+
+  <ul>
+    <% @activities.each do |activity| %>
+      <li>
+        <%= activity.id %> - 
+        <%= activity.trackable_type %> - 
+        <%= activity.trackable_id %> - 
+        <%= link_to activity.trackable, activity.trackable %> - 
+        <%= activity.key %> - 
+        <%= activity.parameters %> - 
+        <%= activity.owner %>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
 
   get "explore", to: "explore#show", as: :explore
-
+  get "activity", to: "pages#activity", as: :pages_activity
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

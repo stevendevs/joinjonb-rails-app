@@ -30,7 +30,7 @@ class Course < ApplicationRecord
         updated_at
       ]
     end
-  
+   
     def self.ransackable_associations(auth_object = nil)
       %w[user]
     end
@@ -47,7 +47,9 @@ class Course < ApplicationRecord
     end
   
 
-
+# PublicActivity
+include PublicActivity::Model
+tracked owner: Proc.new{ |controller, model| controller.current_user }
 
      extend FriendlyId
      friendly_id :title, use: :slugged

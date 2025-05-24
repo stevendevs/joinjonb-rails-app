@@ -27,4 +27,11 @@ class User < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     %w[courses]
   end
+
+  def username
+    self.email.split(/@/).first
+  end
+
+  
+
 end

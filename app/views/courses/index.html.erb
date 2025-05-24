@@ -14,25 +14,26 @@
   <!-- Form -->
   <div class="row">
   <div class="col-md-2">
-    <%= search_form_for @q do |f| %>
+  <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f| %>
+
       <div class="form-group">
         <%= f.label :title %>
-        <%= f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm' %>
+        <%= f.search_field :title, placeholder: 'Title', class: 'form-control form-control-sm' %>
       </div>
 
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.search_field :short_description_cont, placeholder: 'Description', class: 'form-control form-control-sm' %>
+        <%= f.search_field :short_description, placeholder: 'Description', class: 'form-control form-control-sm' %>
       </div>
 
       <div class="form-group">
         <%= f.label :language %>
-        <%= f.select :language_cont, Course.languages, include_blank: true, class: 'form-control form-control-sm' %>
+        <%= f.select :language, Course.languages, include_blank: true, class: 'form-control form-control-sm' %>
       </div>
 
       <div class="form-group">
         <%= f.label :level %>
-        <%= f.select :level_cont, Course.levels, include_blank: true, class: 'form-control form-control-sm' %>
+        <%= f.select :level, Course.levels, include_blank: true, class: 'form-control form-control-sm' %>
       </div>
 
       <div class="form-group">
@@ -42,7 +43,7 @@
 
       <div class="form-group">
         <%= f.label :teacher %>
-        <%= f.search_field :user_email_cont, placeholder: 'Email', class: 'form-control form-control-sm' %>
+        <%= f.search_field :user_email, placeholder: 'Email', class: 'form-control form-control-sm' %>
       </div>
 
       <%= f.submit 'Search', class: 'btn btn-primary btn-sm' %>
