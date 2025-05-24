@@ -7,8 +7,10 @@ class Course < ApplicationRecord
     has_rich_text :description
 
     validates :title, presence: true
-    validates :description, presence: true, length: {:minimum => 5}
-   
+
+    validates :description, :short_description, presence: true, length: { minimum: 5 }
+    validates :language, :level, presence: true
+    validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
      def to_s
        title
      end

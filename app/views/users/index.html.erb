@@ -1,5 +1,53 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-  <% @users.each do |user| %>
-    <%= render 'users/user', user: user %>
-  <% end %>
+<div class="container mx-auto px-4 pt-16 space-y-10">
+
+  <!-- Grid de tarjetas de usuario -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <% @users.each do |user| %>
+      <%= render 'users/user', user: user %>
+    <% end %>
+  </div>
+
+  <!-- Formulario de búsqueda -->
+  <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+    <%= search_form_for @q, html: { class: "flex flex-wrap items-center gap-4" } do |f| %>
+      <%= f.search_field :email_cont, placeholder: 'Email', class: "input input-bordered w-full sm:w-auto" %>
+      <%= f.search_field :sign_in_count_eq, placeholder: 'Sign in count', class: "input input-bordered w-full sm:w-auto" %>
+      <%= f.search_field :email_or_sign_in_count_eq, placeholder: 'Email or sign in count', class: "input input-bordered w-full sm:w-auto" %>
+      <%= f.submit "Search", class: "btn btn-primary" %>
+      <%= link_to 'Refresh', users_path, class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-md">
+      <thead>
+        <tr class="bg-gray-100 dark:bg-gray-700 text-sm font-semibold text-gray-700 dark:text-gray-200">
+          <th class="px-4 py-2 border-b">ID</th>
+          <th class="px-4 py-2 border-b"><%= sort_link(@q, :email) %></th>
+          <th class="px-4 py-2 border-b">Created At</th>
+          <th class="px-4 py-2 border-b"><%= 'sign_in_count'.humanize %></th>
+          <th class="px-4 py-2 border-b"><%= 'current_sign_in_at'.humanize %></th>
+          <th class="px-4 py-2 border-b"><%= 'last_sign_in_at'.humanize %></th>
+          <th class="px-4 py-2 border-b"><%= 'current_sign_in_ip'.humanize %></th>
+          <th class="px-4 py-2 border-b"><%= 'last_sign_in_ip'.humanize %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 text-sm text-gray-800 dark:text-gray-100">
+            <td class="px-4 py-2 border-b"><%= user.id %></td>
+            <td class="px-4 py-2 border-b"><%= user.email %></td>
+            <td class="px-4 py-2 border-b"><%= user.created_at.strftime('%Y-%m-%d') %></td>
+            <td class="px-4 py-2 border-b"><%= user.sign_in_count %></td>
+            <td class="px-4 py-2 border-b"><%= user.current_sign_in_at %></td>
+            <td class="px-4 py-2 border-b"><%= user.last_sign_in_at %></td>
+            <td class="px-4 py-2 border-b"><%= user.current_sign_in_ip %></td>
+            <td class="px-4 py-2 border-b"><%= user.last_sign_in_ip %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
 </div>

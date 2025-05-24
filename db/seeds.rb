@@ -12,7 +12,12 @@ require 'faker'
 # Crear un usuario para asignarle los cursos
 
 
-
+User.create!(
+  email: 'kevin@google.com',
+  password: '123456',
+  password_confirmation: '123456',
+  confirmed_at: Time.current  # Para confirmar el usuario si usas confirmable
+)
 # Crear 30 cursos con ese usuario
 30.times do
   Course.create!(
