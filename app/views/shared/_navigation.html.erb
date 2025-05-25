@@ -1,4 +1,6 @@
-<nav data-controller="mobile-menu"  class="fixed top-0 w-full bg-joinjob-yellow flex flex-col sm:flex-row justify-between items-stretch h-auto sm:h-14 px-3 py-2 sm:py-0 z-10 shadow-lg ">
+
+
+<nav data-controller="mobile-menu"  class="fixed top-0 w-full bg-joinjob-yellow flex flex-col sm:flex-row justify-between items-stretch h-auto sm:h-14 px-3 py-2 sm:py-0  z-10 shadow-lg ">
   <!-- Logo + Toggle -->
   <div class="flex justify-between items-center w-full sm:w-auto border-b sm:border-b-0 sm:border-r border-white/40 pb-2 sm:pb-0 sm:pr-3 mb-2 sm:mb-0">
     <%= link_to root_path, class: "text-xl sm:text-2xl font-black text-white/80 hover:text-white transition-colors" do %>
@@ -33,7 +35,7 @@
     <% end %>
 
     <!-- Dropdown -->
-    <div class="sm:flex sm:items-center">
+    <div class="sm:flex sm:items-center ">
       <% items = [
         ["JOINJOB", root_path],
         ["COURSES", courses_path],
@@ -47,7 +49,7 @@
           options_for_select(items, request.path),
           onchange: "Turbo.visit(this.value)",
           data: { turbo_frame: :main },
-          class: "bg-yellow-500 text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full px-2 py-1 cursor-pointer shadow-md" %>
+          class: "bg-yellow-500 text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full px-2 py-1 cursor-pointer shadow-md  sm:w-full  md:w-full " %>
     </div>
 
     <!-- User Actions -->
