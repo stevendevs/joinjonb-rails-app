@@ -21,6 +21,7 @@
 @theme {
   --color-joinjob-yellow: #FFD700; 
   --color-joinjob-dark-yellow: #D6E2F1; 
+  --color-joinjob-ocean: #aad3df; 
 
   --radius-complete:8px; 
 }

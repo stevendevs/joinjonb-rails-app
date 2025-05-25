@@ -1,11 +1,11 @@
-<nav data-controller="mobile-menu" class="fixed top-0 w-full bg-joinjob-yellow flex flex-col sm:flex-row justify-between items-stretch h-auto sm:h-14 px-3 py-2 sm:py-0 z-50 shadow-lg">
+<nav data-controller="mobile-menu"  class="fixed top-0 w-full bg-joinjob-yellow flex flex-col sm:flex-row justify-between items-stretch h-auto sm:h-14 px-3 py-2 sm:py-0 z-10 shadow-lg ">
   <!-- Logo + Toggle -->
   <div class="flex justify-between items-center w-full sm:w-auto border-b sm:border-b-0 sm:border-r border-white/40 pb-2 sm:pb-0 sm:pr-3 mb-2 sm:mb-0">
     <%= link_to root_path, class: "text-xl sm:text-2xl font-black text-white/80 hover:text-white transition-colors" do %>
       <h1>JoinJob</h1>
     <% end %>
 
-    <button data-mobile-menu-target="toggle" data-action="click->mobile-menu#toggleMenu" class="sm:hidden text-white/80 hover:text-white">
+    <button data-mobile-menu-target="toggle" data-action="click->mobile-menu#toggleMenu" class="sm:hidden text-white/80 hover:text-white ">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
