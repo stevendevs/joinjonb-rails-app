@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
-
+after_action :user_activity
   
 
   include Pundit
@@ -22,6 +22,12 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+def user_activity 
+current_user.try :touch 
+
+end
+
 
   def user_not_authorized #pundit
     flash[:alert] = "You are not authorized to perform this action."

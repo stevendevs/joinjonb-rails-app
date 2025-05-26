@@ -5,8 +5,8 @@ export default class extends Controller {
   static values = { x: Number, y: Number, data: Array }
 
   connect() {
-    let xMap =      8.959718
-    let yMap = -81.736205
+    let xMap =  9.35986838938843
+    let yMap =   -83.65938641697076
 
 
     
