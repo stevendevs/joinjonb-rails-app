@@ -4,24 +4,10 @@
     <%= link_to course.title, course_path(course), class: "text-blue-600 hover:underline" %>
   </div>
 
-
-
   <div>
- 
-</div>
-
-
-
-
-
-
-<div>
-<strong class="block font-medium mb-1">Lessons:</strong>
-<%= course.lessons.count %>
-</div>
-
-
-
+    <strong class="block font-medium mb-1">Lessons:</strong>
+    <%= course.lessons.count %>
+  </div>
 
   <div>
     <strong class="block font-medium mb-1">Description:</strong>
@@ -61,20 +47,19 @@
 
     <div class="col-span-2">
       <strong class="block font-medium mb-1">Creator:</strong>
-      <%= course.user.username %>
+      <%= link_to course.user.username, user_path(course.user) %>
     </div>
   </div>
 
-  <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
+  <div class="w-full sm:w-auto flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
     <%= link_to "Show", course_path(course), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <% if policy(course).edit? %>
-  <div class="card-footer">
-    <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning' %>
-    <% if policy(course).destroy? %>
-      <%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+
+    <% if policy(course).edit? %>
+      <%= link_to 'Edit', edit_course_path(course), class: 'w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-yellow-400 hover:bg-yellow-300 inline-block font-medium' %>
+
+      <% if policy(course).destroy? %>
+        <%= link_to 'Destroy', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }, class: 'w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-medium' %>
+      <% end %>
     <% end %>
   </div>
-<% end %>
-
 </div>
-
