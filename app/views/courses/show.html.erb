@@ -19,7 +19,7 @@
     <h1 class="font-bold text-4xl">Lessons</h1>
     <h1 class="font-bold text-4xl">New lessons</h1>
 
-    <%= link_to "New lesson", new_lesson_path(course_id: @course.id), class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+    <%= link_to "New lesson", new_course_lesson_path(@course, @lesson), class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
   </div>
 
 <% @lessons.each do |lesson| %>
