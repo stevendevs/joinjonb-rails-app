@@ -116,6 +116,9 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
+    exception_notification (5.0.0)
+      actionmailer (>= 7.1, < 9)
+      activesupport (>= 7.1, < 9)
     faker (3.5.1)
       i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
@@ -428,6 +431,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
+  exception_notification (~> 5.0)
   faker (~> 3.5)
   friendly_id (~> 5.5)
   geocoder (~> 1.8)

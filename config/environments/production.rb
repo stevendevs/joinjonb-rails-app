@@ -1,5 +1,16 @@
 require "active_support/core_ext/integer/time"
 
+# excepcion gem 
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+email: {
+  deliver_with: :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
+  email_prefix: '[ERROR - CORSEGO] ',
+  sender_address: %{"corsego error" <kevinstevendevs@gmail.com>},
+  exception_recipients: %w{kevinstevendevs@gmail.com}
+}
+
+
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -8,6 +19,8 @@ Rails.application.configure do
 
   # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
   config.eager_load = true
+
+
 
   # Full error reports are disabled.
   config.consider_all_requests_local = false

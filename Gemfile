@@ -83,3 +83,5 @@ gem "rolify", "~> 6.0"
 
 
 gem "pundit", "~> 2.5"
+
+gem "exception_notification", "~> 5.0"
