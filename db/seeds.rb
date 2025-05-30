@@ -10,20 +10,24 @@
 require 'faker'
 
 # Crear un usuario para asignarle los cursos
-user = User.create!(
-  email: "kevin@gmail.com",
-  password: "123456",
-  password_confirmation: "123456"
+
+
+User.create!(
+  email: 'kevin@google.com',
+  password: '123456',
+  password_confirmation: '123456',
+  confirmed_at: Time.current  # Para confirmar el usuario si usas confirmable
 )
-
-
-
-
 # Crear 30 cursos con ese usuario
 30.times do
   Course.create!(
     title: Faker::Educator.course_name,
     description: Faker::TvShows::GameOfThrones.quote,
-    user_id: user.id
+    user_id: User.first.id,
+    short_description: Faker::Quote.famous_last_words,
+    language: Faker::ProgrammingLanguage.name,
+    level: 'Beginner',
+    price: Faker::Number.between(from: 1000, to: 20000),
+    location: Faker::Address.city # esto genera ciudades como "New York", "Paris"
   )
 end

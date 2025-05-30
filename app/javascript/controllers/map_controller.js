@@ -5,8 +5,13 @@ export default class extends Controller {
   static values = { x: Number, y: Number, data: Array }
 
   connect() {
-    let xMap = 9.92848244462257
-    let yMap = -84.09113133283863
+    let xMap =  9.35986838938843
+    let yMap =   -83.65938641697076
+
+
+    
+    
+    
 
     if ((this.xValue != "") && (this.yValue != "")) {
       xMap = this.xValue
@@ -19,13 +24,13 @@ export default class extends Controller {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
     
-    if (this.hasDataValue) {
-      this.dataValue.forEach(value => {
-        let item = JSON.parse(value)
-        L.marker([item.x, item.y]).addTo(this.map)
-          .bindPopup(item.popupMessage)
-          .openPopup();
-      })
-    }
+   if (this.hasDataValue) {
+  this.dataValue.forEach(value => {
+    let item = typeof value === "string" ? JSON.parse(value) : value
+    L.marker([item.x, item.y]).addTo(this.map)
+      .bindPopup(item.popupMessage)
+  });
+}
+
   }
 }

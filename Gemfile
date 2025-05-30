@@ -73,3 +73,15 @@ gem "devise", "~> 4.9"
 gem "friendly_id", "~> 5.5"
 
 gem "geocoder", "~> 1.8"
+
+gem "ransack", "~> 4.3"
+
+gem "public_activity", "~> 3.0"
+
+gem "rolify", "~> 6.0"
+
+
+
+gem "pundit", "~> 2.5"
+
+gem "exception_notification", "~> 5.0"

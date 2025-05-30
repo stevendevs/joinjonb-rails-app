@@ -1,13 +1,15 @@
-<div class="breadcrumbs py-6 bg-base-300 ">  
+<div class="breadcrumbs py-6 bg-base-300 pt-16">  
   <ul class="flex space-x-2 px-6 text-sm">
     <% if user_signed_in? %>
       <li><a><%= current_user.email %></a></li>
     <% end %>
 
-    <li><%= link_to "Courses", courses_path %></li>
+    <li><%= link_to 'Courses', courses_path %></li>
 
-    <% if defined?(@course) && @course.present? %>
-      <li><%= link_to @course.title, course_path(@course) %></li>
+    <% if defined?(@lesson) && @lesson.present? && @lesson.course.present? %>
+      <li><%= link_to @lesson.course.title, course_path(@lesson.course) %></li>
+      <li><%= link_to @lesson.title, lesson_path(@lesson) %></li>
     <% end %>
   </ul>
 </div>
+

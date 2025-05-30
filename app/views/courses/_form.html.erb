@@ -2,7 +2,6 @@
   <% if course.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
       <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
-
       <ul class="list-disc ml-6">
         <% course.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -13,32 +12,57 @@
 
   <div class="my-5">
     <%= form.label :title %>
-    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": course.errors[:title].none?, "border-red-400 focus:outline-red-600": course.errors[:title].any?}] %>
+    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+      { "border-gray-400 focus:outline-blue-600": course.errors[:title].none?, 
+        "border-red-400 focus:outline-red-600": course.errors[:title].any? }] %>
   </div>
 
-  
   <div class="my-5">
-  <%= form.label :location %>
-  <%= form.text_field :location, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": course.errors[:title].none?, "border-red-400 focus:outline-red-600": course.errors[:title].any?}] %>
-</div>
-
-
-  
-  <div class="my-5">
-  <%= form.label :images %>
-  <%= form.file_field :images, multiple: true, direct_upload: true, class: "block w-full mt-2" %>
+    <%= form.label :short_description %>
+    <%= form.text_field :short_description, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+      { "border-gray-400 focus:outline-blue-600": course.errors[:short_description].none?, 
+        "border-red-400 focus:outline-red-600": course.errors[:short_description].any? }] %>
   </div>
-  
-  
-  
+
+  <div class="my-5">
+    <%= form.label :language %>
+    <%= form.select :language, ["English", "Polish", "Russian"], {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+      { "border-gray-400 focus:outline-blue-600": course.errors[:language].none?, 
+        "border-red-400 focus:outline-red-600": course.errors[:language].any? }] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :level %>
+    <%= form.select :level, ["Beginner", "Intermediate", "Advanced"], {}, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+      { "border-gray-400 focus:outline-blue-600": course.errors[:level].none?, 
+        "border-red-400 focus:outline-red-600": course.errors[:level].any? }] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :price %>
+    <%= form.text_field :price, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+      { "border-gray-400 focus:outline-blue-600": course.errors[:price].none?, 
+        "border-red-400 focus:outline-red-600": course.errors[:price].any? }] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :location %>
+    <%= form.text_field :location, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+      { "border-gray-400 focus:outline-blue-600": course.errors[:location].none?, 
+        "border-red-400 focus:outline-red-600": course.errors[:location].any? }] %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :images %>
+    <%= form.file_field :images, multiple: true, direct_upload: true, class: "block w-full mt-2" %>
+  </div>
+
   <div class="my-5">
     <%= form.label :description %>
-    <%= form.rich_textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": course.errors[:description].none?, "border-red-400 focus:outline-red-600": course.errors[:description].any?}] %>
+    <%= form.rich_text_area :description, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", 
+      { "border-gray-400 focus:outline-blue-600": course.errors[:description].none?, 
+        "border-red-400 focus:outline-red-600": course.errors[:description].any? }] %>
   </div>
-
-
-
-
 
   <div class="inline">
     <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>

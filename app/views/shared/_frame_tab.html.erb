@@ -1,23 +1,6 @@
+<!-- Tabs con estilos robustos -->
+<div class="tabs tabs-boxed w-full flex justify-center space-x-2 text-sm font-medium">
+  <%= link_to 'Log In', new_user_session_path, class: "tab #{current_page?(new_user_session_path) ? 'tab-active bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'} transition-all duration-200 shadow-sm px-4 py-2 rounded-md" %>
 
-
-
-<div class="h-24 font-medium items-center flex justify-center"> 
-
-<%= link_to 'Sign Up', 
-new_user_registration_path,
-class:"mx-4" %>
-<%= link_to 'Log In', new_user_session_path %>
+  <%= link_to 'Sign Up', new_user_registration_path, class: "tab #{current_page?(new_user_registration_path) ? 'tab-active bg-indigo-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'} transition-all duration-200 shadow-sm px-4 py-2 rounded-md" %>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-

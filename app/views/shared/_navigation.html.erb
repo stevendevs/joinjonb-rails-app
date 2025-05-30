@@ -1,66 +1,53 @@
-<nav class="fixed top-0 w-full bg-yellow-400 flex justify-between items-center h-14 px-3 z-50">
-  <!-- Logo -->
-  <div class="border-r border-white/40 pr-3">
-    <%= link_to root_path, class: "text-2xl font-black text-white/80" do %>
+<nav class="fixed top-0 w-full bg-joinjob-yellow z-50" data-controller="mobile-menu">
+  <div class="max-w-screen-2xl mx-auto flex items-center justify-between px-5 py-2 h-auto">
+
+    <!-- Logo -->
+    <%= link_to root_path, class: "text-xl sm:text-2xl font-black text-white/80 hover:text-white transition-colors whitespace-nowrap" do %>
       <h1>JoinJob</h1>
     <% end %>
-  </div>
-  
 
-  <div class="form-inline my-2 my-lg-0">
- 
-    <%= form_tag courses_path, method: :get do %>
-      <div class="input-group">
-
-        <%= text_field_tag :title, params[:title], autocomplete: 'off', placeholder: 'Search' %>
-        <span class="input-group-append">
-        <button type="submit">
-        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-        </svg>
-      </button>
-        </span>
+    <!-- Buscador (ocupa espacio restante) -->
+    <% if current_user && current_user.has_role?(:admin) %>
+      <div class="flex-grow mx-4 hidden sm:block">
+        <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "flex max-w-xl" do |f| %>
+          <%= f.search_field :title_cont, placeholder: 'Find a course', autocomplete: :off, class: "flex-1 px-3 py-2 text-sm border border-white/30 rounded-l-lg bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent" %>
+          <%= f.submit 'Search', class: "px-4 py-2 text-sm font-medium text-yellow-600 bg-white rounded-r-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors cursor-pointer" %>
+        <% end %>
       </div>
     <% end %>
 
-</div>
+    <!-- Botón hamburguesa SOLO visible en móvil -->
+    <button data-action="click->mobile-menu#toggleMenu" class="sm:hidden p-2 text-white hover:text-white/90 focus:outline-none ml-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
 
-  
+    <!-- Menú (visible siempre en desktop, oculto por defecto en móvil) -->
+    <div data-mobile-menu-target="menu"
+      class="hidden sm:flex sm:items-center sm:space-x-4 sm:ml-4 mt-2 sm:mt-0 flex-col sm:flex-row w-full sm:w-auto sm:static absolute top-full left-0 bg-joinjob-yellow sm:bg-transparent px-5 sm:px-0 py-4 sm:py-0">
 
-  <!-- Navigation -->
-  <div class="flex items-center space-x-4">
- 
-  <div class="flex items-center  bg-yellow-500 h-10 rounded-full px-3">
-    <% items = [
-      ["JOINJOB", root_path],
-      ["COURSES", courses_path],
-      ["OPTIONS", edit_user_registration_path],
-      ["USERS", users_path],
-      ["MAP", explore_path],
-    ].compact %>
+      <% if user_signed_in? %>
+        <%= link_to 'Sign out',
+          destroy_user_session_path,
+          data: { turbo_method: :delete },
+          class: "text-white bg-red-600 hover:bg-red-700 rounded-full font-medium text-sm px-4 py-2 text-center transition-colors shadow-md hover:shadow-lg w-full sm:w-auto" %>
+      <% else %>
+        <%= link_to 'Sign in',
+          new_user_session_path,
+          class: "text-yellow-600 bg-white hover:bg-gray-100 rounded-full font-medium text-sm px-4 py-2 text-center transition-colors shadow-md hover:shadow-lg w-full sm:w-auto" %>
+      <% end %>
 
-    <%= select_tag :navigation,
-        options_for_select(items, request.path),
-        onchange: "Turbo.visit(this.value)",
-        data: { turbo_frame: :main }
-    %>
-
-  </div>
-  <div> 
-
-  <!-- User Actions -->
-  <% if user_signed_in? %>
-    <%= link_to 'Sign out',
-                destroy_user_session_path,
-                data: { turbo_method: :delete },
-                class: "text-white bg-red-700 hover:bg-red-800  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 " %>             
-  <% end %>
-
-  </div>
+      <% if user_signed_in? %>
+        <div class="flex justify-center items-center mt-2 sm:mt-0">
+          <div class="relative">
+            <div class="bg-neutral text-neutral-content w-12 h-12 rounded-full flex items-center justify-center text-xl font-semibold">
+              <span>AI</span>
+            </div>
+            <span class="<%= current_user&.online? ? 'to-green-online' : 'to-gray-400' %> absolute bottom-0 right-0 bg-radial-[at_25%_25%] from-white block size-3.5 border border-white rounded-full"></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </nav>
-
-
-
-

@@ -1,8 +1,13 @@
-<div id="<%= dom_id course %>" class="w-full sm:w-auto my-5 space-y-5">
-<div>
-  <strong class="block font-medium mb-1">Title:</strong>
-  <%= link_to course.title, course_path(course), class: "text-blue-600 hover:underline" %>
-</div>
+<div id="<%= dom_id(course) %>" class="w-full sm:w-auto my-5 space-y-5 border rounded-lg p-4 shadow-sm">
+  <div>
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= link_to course.title, course_path(course), class: "text-blue-600 hover:underline" %>
+  </div>
+
+  <div>
+    <strong class="block font-medium mb-1">Lessons:</strong>
+    <%= course.lessons.count %>
+  </div>
 
   <div>
     <strong class="block font-medium mb-1">Description:</strong>
@@ -10,32 +15,51 @@
   </div>
 
   <div>
-  <strong class="block font-medium mb-1">Create:</strong>
-  <%= course.created_at %>
-</div>
-
-
-<div>
-<strong class="block font-medium mb-1">Location:</strong>
-<%= course.location %>
-</div>
-
-
-
+    <strong class="block font-medium mb-1">Short Description:</strong>
+    <%= course.short_description %>
+  </div>
 
   <div>
-  <strong class="block font-medium mb-1">Creator:</strong>
-  <%= course.user%>
+    <strong class="block font-medium mb-1">Location:</strong>
+    <%= course.location %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <strong class="block font-medium mb-1">Level:</strong>
+      <%= course.level %>
+    </div>
+
+    <div>
+      <strong class="block font-medium mb-1">Language:</strong>
+      <%= course.language %>
+    </div>
+
+    <div>
+      <strong class="block font-medium mb-1">Price:</strong>
+      <%= number_to_currency(course.price) %>
+    </div>
+
+    <div>
+      <strong class="block font-medium mb-1">Created At:</strong>
+      <%= course.created_at.strftime('%d-%b-%Y') %>
+    </div>
+
+    <div class="col-span-2">
+      <strong class="block font-medium mb-1">Creator:</strong>
+      <%= link_to course.user.username, user_path(course.user) %>
+    </div>
+  </div>
+
+  <div class="w-full sm:w-auto flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
+    <%= link_to "Show", course_path(course), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+
+    <% if policy(course).edit? %>
+      <%= link_to 'Edit', edit_course_path(course), class: 'w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-yellow-400 hover:bg-yellow-300 inline-block font-medium' %>
+
+      <% if policy(course).destroy? %>
+        <%= link_to 'Destroy', course_path(course), method: :delete, data: { confirm: 'Are you sure?' }, class: 'w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-medium' %>
+      <% end %>
+    <% end %>
+  </div>
 </div>
-
-<div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-<%= link_to "Show", course, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-<%= link_to "Edit", edit_course_path(course), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-<%= button_to "Destroy", course, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-</div>
-</div>
-
-
-
-
-
