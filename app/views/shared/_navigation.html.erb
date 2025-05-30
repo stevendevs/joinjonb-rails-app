@@ -1,122 +1,53 @@
-<nav class="flex fixed top-0 w-full flex-col items-center bg-joinjob-yellow justify-center md:flex-row p-2 h-14 z-50" data-controller="mobile-menu">
-  <div class="max-w-screen-2xl mx-auto w-full flex flex-col md:flex-row justify-between items-stretch px-2 h-auto gap-y-3 md:gap-y-0">
+<nav class="fixed top-0 w-full bg-joinjob-yellow z-50" data-controller="mobile-menu">
+  <div class="max-w-screen-2xl mx-auto flex items-center justify-between px-5 py-2 h-auto">
 
-    <!-- Logo + Botón Hamburguesa -->
-    <div class="flex justify-between items-center h-12 border-r border-white/50 w-full md:w-1/3">
-        <%= link_to root_path, class: " pl-18 text-xl sm:text-2xl font-black text-white/80 hover:text-white transition-colors " do %>
-        <h1>JoinJob</h1>
+    <!-- Logo -->
+    <%= link_to root_path, class: "text-xl sm:text-2xl font-black text-white/80 hover:text-white transition-colors whitespace-nowrap" do %>
+      <h1>JoinJob</h1>
+    <% end %>
 
-      <% end %>
-
-      <button data-action="click->mobile-menu#toggleMenu" class="sm:hidden ml-2 p-2 text-white hover:text-white/90 focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-
-
-
-
-      
-<!-- Dropdown -->
-<div class="sm:flex sm:items-center ">
-  <% items = [
-    ["JOINJOB", root_path],
-    ["COURSES", courses_path],
-    ["OPTIONS", edit_user_registration_path],
-    ["USERS", users_path],
-    ["MAP", explore_path],
-    ["ACTIVITY", pages_activity_path],
-    ["LESSONS", lessons_path]
-  ].compact %>
-
-  <%= select_tag :navigation,
-      options_for_select(items, request.path),
-      onchange: "Turbo.visit(this.value)",
-      data: { turbo_frame: :main },
-      class: "bg-yellow-500 min-w-40 sm:w-20 text-white font-medium text-sm focus:outline-none focus:ring-2 focus:ring-white/50 rounded-full px-2 py-1 cursor-pointer shadow-md  sm:w-full  md:w-full " %>
-</div>
-
-
-
-    </div>
-
-    <!-- CONTENIDO OCULTABLE EN MÓVIL -->
-    <!-- CONTENIDO OCULTABLE EN MÓVIL -->
-    <div data-mobile-menu-target="menu" class="hidden sm:flex flex-col md:flex-row w-full md:w-2/3 md:justify-between">
-      
-      <!-- Buscador o espacio reservado -->
-      <div class="flex justify-center items-center h-14 w-full md:w-1/2">
-        <% if current_user && current_user.has_role?(:admin) %>
-      
-        <% else %>
-          <!-- Espacio vacío para mantener estructura -->
-          <div class="w-full h-14"></div>
+    <!-- Buscador (ocupa espacio restante) -->
+    <% if current_user && current_user.has_role?(:admin) %>
+      <div class="flex-grow mx-4 hidden sm:block">
+        <%= search_form_for @ransack_courses, as: :courses_search, url: courses_path, class: "flex max-w-xl" do |f| %>
+          <%= f.search_field :title_cont, placeholder: 'Find a course', autocomplete: :off, class: "flex-1 px-3 py-2 text-sm border border-white/30 rounded-l-lg bg-white/10 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent" %>
+          <%= f.submit 'Search', class: "px-4 py-2 text-sm font-medium text-yellow-600 bg-white rounded-r-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white/50 transition-colors cursor-pointer" %>
         <% end %>
       </div>
-    
-      <!-- Sign In / Avatar -->
-      <div class="flex items-center h-14 border-t sm:border-t-0 sm:border-l border-white/50 w-full md:w-1/2 justify-between">
-        <div class="w-5/6 flex items-center justify-end space-x-2">
-          <% if user_signed_in? %>
-          <%= link_to 'Sign out',
+    <% end %>
+
+    <!-- Botón hamburguesa SOLO visible en móvil -->
+    <button data-action="click->mobile-menu#toggleMenu" class="sm:hidden p-2 text-white hover:text-white/90 focus:outline-none ml-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Menú (visible siempre en desktop, oculto por defecto en móvil) -->
+    <div data-mobile-menu-target="menu"
+      class="hidden sm:flex sm:items-center sm:space-x-4 sm:ml-4 mt-2 sm:mt-0 flex-col sm:flex-row w-full sm:w-auto sm:static absolute top-full left-0 bg-joinjob-yellow sm:bg-transparent px-5 sm:px-0 py-4 sm:py-0">
+
+      <% if user_signed_in? %>
+        <%= link_to 'Sign out',
           destroy_user_session_path,
-              data: { turbo_method: :delete },
-              class: "text-white bg-red-600 hover:bg-red-700 rounded-full font-medium text-sm px-4 sm:px-5 py-2 sm:py-2.5 text-center transition-colors shadow-md hover:shadow-lg" %>
-          <% else %>
-            <%= link_to 'Sign in',
-              new_user_session_path,
-              class: "text-yellow-600 bg-white hover:bg-gray-100 rounded-full font-medium text-sm px-4 sm:px-5 py-2 sm:py-2.5 text-center transition-colors shadow-md hover:shadow-lg" %>
-          <% end %>
+          data: { turbo_method: :delete },
+          class: "text-white bg-red-600 hover:bg-red-700 rounded-full font-medium text-sm px-4 py-2 text-center transition-colors shadow-md hover:shadow-lg w-full sm:w-auto" %>
+      <% else %>
+        <%= link_to 'Sign in',
+          new_user_session_path,
+          class: "text-yellow-600 bg-white hover:bg-gray-100 rounded-full font-medium text-sm px-4 py-2 text-center transition-colors shadow-md hover:shadow-lg w-full sm:w-auto" %>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <div class="flex justify-center items-center mt-2 sm:mt-0">
+          <div class="relative">
+            <div class="bg-neutral text-neutral-content w-12 h-12 rounded-full flex items-center justify-center text-xl font-semibold">
+              <span>AI</span>
+            </div>
+            <span class="<%= current_user&.online? ? 'to-green-online' : 'to-gray-400' %> absolute bottom-0 right-0 bg-radial-[at_25%_25%] from-white block size-3.5 border border-white rounded-full"></span>
           </div>
-          
-          
-               <div class="w-1/6 flex justify-center items-center">
-                  <% if user_signed_in? %>
-                  
-                  <div class="w-1/6 flex justify-center items-center">
-                
-                    <div class="relative">
-                      <!-- Avatar redondo -->
-                      <div class="bg-neutral text-neutral-content w-12 h-12 rounded-full flex items-center justify-center text-xl font-semibold">
-                        <span>AI</span>
-                      </div>
-                      <!-- Punto de estado "online user.online?" -->
-                      <span class="<%= current_user&.online? ? 'to-green-online' : 'to-gray-400' %> absolute bottom-0 right-0 bg-radial-[at_25%_25%] from-white block size-3.5 border border-white rounded-full"></span>
-
-
-                    </div>
-          
-                </div>
-                
-          
-                  <% end %>
-                </div>
-                
-          
-          
-          
-       
-       
-   
-
-
-        
-      </div>
-    
+        </div>
+      <% end %>
     </div>
-    
   </div>
 </nav>
-
-
-
-
-
-
-
-
-
-
-
-
